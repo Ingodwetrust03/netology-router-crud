@@ -2,6 +2,7 @@ import {useContext} from "react";
 import {PostsContext} from "./PostsContext";
 import {useParams} from "react-router";
 import {useNavigate, Link} from "react-router-dom";
+import {redirect} from "../hooks/redirect";
 
 
 
@@ -14,7 +15,7 @@ const GetPost = () => {
         fetch(`http://localhost:7070/posts/${params.postId}`, {
             method: "DELETE",
         })
-        navigate("/posts/");
+        redirect("/posts/");
     }
 
 

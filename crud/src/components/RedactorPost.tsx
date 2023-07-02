@@ -1,14 +1,13 @@
 import {useContext, useState} from "react";
 import {PostsContext} from "./PostsContext";
-import {useNavigate, Link} from "react-router-dom";
 import {useParams} from "react-router";
+import {redirect} from "../hooks/redirect";
 
 
 
 
 const RedactorPost = () => {
     const {loading, posts} = useContext(PostsContext)
-    const navigate = useNavigate();
     const params = useParams()
     const[errorMessage, setErrorMessage] = useState(false)
     const[errorMessageText, setErrorMessageText] = useState("")
@@ -49,7 +48,7 @@ const RedactorPost = () => {
             })
                 .then(()=>{setValue({content: ""})})
 
-            navigate(`/posts/${params.postId}`);
+            redirect(`/posts/${params.postId}`);
         }
     }
 

@@ -1,13 +1,13 @@
 import {useContext, useState} from "react";
 import {PostsContext} from "./PostsContext";
-import {useNavigate, Link} from "react-router-dom";
+import {redirect} from "../hooks/redirect";
+import {Link} from "react-router-dom";
 
 
 const CreatePost = () => {
     const {loading, error} = useContext(PostsContext)
     const[errorMessage, setErrorMessage] = useState(false)
     const[errorMessageText, setErrorMessageText] = useState("")
-    const navigate = useNavigate();
     const [content, setValue] = useState(
         {
             content: "",
@@ -45,7 +45,7 @@ const CreatePost = () => {
                 .then(()=>{setValue({content: ""})})
 
 
-            navigate("/posts/");
+            redirect("/posts/");
              }
         }
 
