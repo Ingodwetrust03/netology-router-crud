@@ -14,7 +14,8 @@ const GetPost = () => {
         fetch(`http://localhost:7070/posts/${params.postId}`, {
             method: "DELETE",
         })
-        navigate("/posts/");
+            .then(() =>navigate("/posts/"))
+
     }
 
 

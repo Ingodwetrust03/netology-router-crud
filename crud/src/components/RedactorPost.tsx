@@ -27,13 +27,13 @@ const RedactorPost = () => {
 
     const redactPost = (e) => {
         e.preventDefault();
-        const regExp = new RegExp('^\\w[^<>]+$')
+        const regExp = new RegExp('^[^<>{}&;"«»\']+$')
         if (!content.content) {
             setErrorMessage(true)
             setErrorMessageText("Заполните текстовое поле")
         }else if(!regExp.test(content.content)) {
             setErrorMessage(true)
-            setErrorMessageText("Спецсимволы не доспустимы")
+            setErrorMessageText("Спецсимволы не допустимы")
         } else {
             setErrorMessage(false)
             setErrorMessageText("")
@@ -47,9 +47,11 @@ const RedactorPost = () => {
                     "Content-Type": "application/json",
                 },
             })
-                .then(()=>{setValue({content: ""})})
+                .then(()=>{
+                    setValue({content: ""})
+                    navigate(`/posts/${params.postId}`)
+                })
 
-            navigate(`/posts/${params.postId}`);
         }
     }
 

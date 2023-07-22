@@ -18,6 +18,7 @@ function App() {
       <div className="container">
           <PostsProvider>
         <Routes>
+            <Route path="/"  element={<HomePage/>} />
           <Route path="/posts/"  element={<HomePage/>} />
             <Route path="posts">
                 <Route path="new" element={<CreatePost />} />
