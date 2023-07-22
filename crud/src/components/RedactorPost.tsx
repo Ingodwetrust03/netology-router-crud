@@ -1,7 +1,8 @@
 import {useContext, useState} from "react";
 import {PostsContext} from "./PostsContext";
 import {useParams} from "react-router";
-import {redirect} from "../hooks/redirect";
+import useRedirect from "../hooks/useRedirect";
+import {Link} from "react-router-dom";
 
 
 
@@ -26,7 +27,7 @@ const RedactorPost = () => {
 
     const redactPost = (e) => {
         e.preventDefault();
-        const regExp = new RegExp('^\\w[^<>]+$')
+        const regExp = new RegExp('^[<>{}&;"«»\']+$')
         if (!content.content) {
             setErrorMessage(true)
             setErrorMessageText("Заполните текстовое поле")
@@ -46,9 +47,12 @@ const RedactorPost = () => {
                     "Content-Type": "application/json",
                 },
             })
-                .then(()=>{setValue({content: ""})})
+                .then(()=>{
+                    setValue({content: ""})
+                    useRedirect(`/posts/${params.postId}`);
+                })
 
-            redirect(`/posts/${params.postId}`);
+
         }
     }
 

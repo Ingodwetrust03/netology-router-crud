@@ -18,6 +18,7 @@ function App() {
       <div className="container">
           <PostsProvider>
         <Routes>
+            <Route path="/"  element={<HomePage />} />
           <Route path="/posts/"  element={<HomePage/>} />
             <Route path="posts">
                 <Route path="new" element={<CreatePost />} />
@@ -27,6 +28,7 @@ function App() {
             <Route path="*" element={<Page404 />} />
         </Routes>
           </PostsProvider>
+
       </div>
     </BrowserRouter>
   )

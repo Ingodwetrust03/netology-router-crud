@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useLocation} from 'react-router-dom';
 
-const useJsonFetch = (url, opts) => {
+const useJsonFetch = (url, opts:[]) => {
     const[data, setData] = useState(opts)
     const[loading, setLoading] = useState(false)
     const[error, setError] = useState(false)

@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import {PostsContext} from "./PostsContext";
-import {redirect} from "../hooks/redirect";
 import {Link} from "react-router-dom";
+import useRedirect from "../hooks/useRedirect";
 
 
 const CreatePost = () => {
@@ -14,6 +14,7 @@ const CreatePost = () => {
         }
     );
 
+
     const getValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setErrorMessage(false)
         const {name, value} = e.target;
@@ -23,29 +24,30 @@ const CreatePost = () => {
 
     const addNewPost = (e) => {
         e.preventDefault();
-        const regExp = new RegExp('^\\w[^<>]+$')
+        const regExp = new RegExp('^[<>{}&;"«»\']+$')
         if (!content.content) {
             setErrorMessage(true)
             setErrorMessageText("Заполните текстовое поле")
-        }else if(!regExp.test(content.content)) {
+        }else if(regExp.test(content.content)) {
             setErrorMessage(true)
-            setErrorMessageText("Спецсимволы не доспустимы")
+            setErrorMessageText("Спецсимволы не допустимы")
         } else {
-            setErrorMessage(false)
-            setErrorMessageText("")
-            fetch("http://localhost:7070/posts", {
-                method: "POST",
-                body: JSON.stringify({
-                    content: content.content
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-                .then(()=>{setValue({content: ""})})
+                setErrorMessage(false)
+                setErrorMessageText("")
+                fetch("http://localhost:7070/posts", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        content: content.content
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then(()=>{
+                        setValue({content: ""})
+                        useRedirect("/posts/")
+                    })
 
-
-            redirect("/posts/");
              }
         }
 

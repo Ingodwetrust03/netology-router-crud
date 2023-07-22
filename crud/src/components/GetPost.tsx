@@ -1,21 +1,20 @@
 import {useContext} from "react";
 import {PostsContext} from "./PostsContext";
 import {useParams} from "react-router";
-import {useNavigate, Link} from "react-router-dom";
-import {redirect} from "../hooks/redirect";
+import useRedirect from "../hooks/useRedirect";
+import {Link} from "react-router-dom";
 
 
 
 const GetPost = () => {
     const {loading, posts} = useContext(PostsContext)
-    const navigate = useNavigate();
     const params = useParams()
 
     const deletePost = () => {
         fetch(`http://localhost:7070/posts/${params.postId}`, {
             method: "DELETE",
         })
-        redirect("/posts/");
+            .then(()=>useRedirect("/posts/"))
     }
 
 
